@@ -98,28 +98,12 @@ workflow{
             CreateRecalibrationTable.out[1]
             )
     
-    CallVariants(
-                    ApplyBQSR.out[0],
-                    ApplyBQSR.out[1]
-                    )
     
-    RunGenomicsDBImport(
-        CallVariants.out[0].collect(),
-        CallVariants.out[1].collect(),
-        CallVariants.out[2].collect(),
-        chrmList
-        )
-    
-    GenotypeGVCF(RunGenomicsDBImport.out)
-    ConcatVCF(GenotypeGVCF.out.collect())
-    RunCSQ(ConcatVCF.out[0])
-    VariantEval(ConcatVCF.out[1], ConcatVCF.out[2], )
-    
-    RunMultiQC(
-        RunFastQC.out[0].collect(),
-        CreateRecalibrationTable.out[1].collect(),
-        VariantEval.out
-        )
+    // RunMultiQC(
+    //     RunFastQC.out[0].collect(),
+    //     CreateRecalibrationTable.out[1].collect(),
+    //     VariantEval.out
+    //     )
 } // end of workflow
 
 
